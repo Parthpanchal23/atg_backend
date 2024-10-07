@@ -26,4 +26,21 @@ router.
         }
     });
 
+    router.
+    route("/user/:uid")
+    .get((req, res, next) => {
+        const id = req.params.uid;
+        const post = Data?.find(p=> {
+            return p.creator == id;
+        });
+        
+        if(post)
+        {
+            res.json({id,status:"sucess",data:post});
+        }
+        else{
+            res.json({status:false,message:"User post not Found"});
+        }
+    });
+
 module.exports =router;

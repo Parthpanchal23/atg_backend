@@ -15,7 +15,7 @@ const Data = [
     status: "active",
     location: { lat: "", lng: "" },
     keyword: [],
-    creator:"ui1"
+    creator:"ui2"
   },
   {
     id: 3,
@@ -24,7 +24,7 @@ const Data = [
     status: "active",
     location: { lat: "", lng: "" },
     keyword: [],
-    creator:"ui1"
+    creator:"ui3"
   },
 ];
 module.exports =Data;
