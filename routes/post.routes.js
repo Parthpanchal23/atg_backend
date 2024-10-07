@@ -1,7 +1,10 @@
 const { Router } = require("express");
 const Data = require("../data");
-
+const HttpError = require('../utils/http-error');
 const router = Router();
+
+
+
 
 router.
     route("/")
@@ -39,10 +42,17 @@ router.
             return res.json({id,status:"sucess",data:post});
         }
         else{
+        // Error Handling
+        // [1].   
         // return res.status(404).json({status:false,message:"User post not Found"});
 
-        const error = new Error('Could not find a post for provided user id.');
-        error.code = 404;
+        // [2].
+        // const error = new Error('Could not find a post for provided user id.');
+        // error.code = 404;
+
+        // [3].
+        throw new HttpError('Could not find a post for provided user id.',400);
+
         next(error);
         }
     });
