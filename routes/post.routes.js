@@ -6,7 +6,7 @@ const router = Router();
 router.
     route("/")
     .get((req, res, next) => {
-        res.json({status:"sucess",data:Data});
+        return res.json({status:"sucess",data:Data});
     });
 
 router.
@@ -19,10 +19,10 @@ router.
         
         if(post)
         {
-            res.json({id,status:"sucess",data:post});
+             return res.json({id,status:"sucess",data:post});
         }
         else{
-            res.json({status:false,message:"post not Found"});
+            return res.status(400).json({status:false,message:"post not Found"});
         }
     });
 
@@ -36,10 +36,14 @@ router.
         
         if(post)
         {
-            res.json({id,status:"sucess",data:post});
+            return res.json({id,status:"sucess",data:post});
         }
         else{
-            res.json({status:false,message:"User post not Found"});
+        // return res.status(404).json({status:false,message:"User post not Found"});
+
+        const error = new Error('Could not find a post for provided user id.');
+        error.code = 404;
+        next(error);
         }
     });
 
