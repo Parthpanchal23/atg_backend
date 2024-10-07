@@ -5,6 +5,8 @@ const userRoute = require('./routes/user.routes');
 
 const app =express();
 
+app.use(bodyParser.json())
+
 app.use('/api/v1/user',userRoute);
 app.use('/api/v1/post',postRoute);
 
