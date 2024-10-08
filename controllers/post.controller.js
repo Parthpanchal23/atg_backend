@@ -1,6 +1,7 @@
 const Data = require("../data");
 const HttpError = require("../utils/http-error");
-const uuid = require('uuid/v4');
+const uuid = require('uuid');
+
 const getAllPost = (req, res, next) => {
   return res.json({ status: "sucess", data: Data });
 };
