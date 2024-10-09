@@ -49,7 +49,7 @@ const createPost = (req, res, next) => {
   if (
     [title, description, status, location, keyword, creator].some((fields) => fields?.trim() === "")) {
         console.log("err",[title, description, status, location, keyword, creator].some((fields) => fields?.trim() === ""))
-    throw new HttpError("ALL fields are required", 400,);
+    throw new HttpError("ALL fields are required", 400);
   }
 
   const createdPost = {
@@ -69,8 +69,34 @@ const createPost = (req, res, next) => {
     .json({ message: "Post created Sucessfully", data: createdPost });
 };
 
+const updatePost = (req,res,next) => {
+  const {title,description} = req.body;
+  const postId = req.params.pid;
+
+  const updatePostdata = {...Data.find(p => p.id === postId)};
+  const postIndex = Data.findIndex(p => p.id === postId);
+  updatePostdata.title =title;
+  updatePost.description =description;
+  
+try{
+
+  Data[postIndex] =updatePostdata;
+  res.status(200).json({message:"updated Sucessfully",data:updatePostdata});
+} catch(er) {
+  throw new HttpError("Updation failed", 400);
+}
+
+
+}
+
+const deletePost = (req,res,next) => {
+
+}
+
 exports.getAllPost = getAllPost;
 exports.getPostById = getPostById;
 exports.getPostByUserId = getPostByUserId;
 
 exports.createPost = createPost;
+exports.updatePost = updatePost;
+exports.deletePost = deletePost;
