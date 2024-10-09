@@ -77,20 +77,19 @@ const updatePost = (req,res,next) => {
   const postIndex = Data.findIndex(p => p.id === postId);
   updatePostdata.title =title;
   updatePost.description =description;
-  
-try{
 
+try{
   Data[postIndex] =updatePostdata;
   res.status(200).json({message:"updated Sucessfully",data:updatePostdata});
 } catch(er) {
   throw new HttpError("Updation failed", 400);
 }
-
-
 }
 
 const deletePost = (req,res,next) => {
-
+  const pid =req.params.pid;
+  Data =Data.filter(p => p.id !== pid );
+  res.status(200).json({message:"deleted sucessfull"})
 }
 
 exports.getAllPost = getAllPost;
