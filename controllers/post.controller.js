@@ -19,13 +19,13 @@ const getPostById = (req, res, next) => {
   }
 };
 
-const getPostByUserId = (req, res, next) => {
+const getPostsByUserId = (req, res, next) => {
   const id = req.params.uid;
-  const post = Data?.find((p) => {
+  const post = Data?.filter((p) => {
     return p.creator == id;
   });
 
-  if (post) {
+  if (post || post.length > 0) {
     return res.json({ id, status: "sucess", data: post });
   } else {
     // Error Handling
@@ -94,7 +94,7 @@ const deletePost = (req,res,next) => {
 
 exports.getAllPost = getAllPost;
 exports.getPostById = getPostById;
-exports.getPostByUserId = getPostByUserId;
+exports.getPostsByUserId = getPostsByUserId;
 
 exports.createPost = createPost;
 exports.updatePost = updatePost;

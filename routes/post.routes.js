@@ -1,6 +1,6 @@
 
 const { Router } = require("express");
-const { getPostById, getPostByUserId, getAllPost, createPost, deletePost, updatePost } = require("../controllers/post.controller");
+const { getPostById, getPostsByUserId, getAllPost, createPost, deletePost, updatePost } = require("../controllers/post.controller");
 
 const router = Router();
 /**
@@ -42,7 +42,7 @@ router.
  */ 
 router.
     route("/user/:uid")
-    .get(getPostByUserId);
+    .get(getPostsByUserId);
 
 
 
