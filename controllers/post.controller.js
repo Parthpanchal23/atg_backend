@@ -1,4 +1,4 @@
-const Data = require("../data");
+const { Data } = require("../data");
 const HttpError = require("../utils/http-error");
 const uuid = require('uuid');
 

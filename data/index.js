@@ -27,4 +27,15 @@ let Data = [
     creator:"ui3"
   },
 ];
-module.exports =Data;
+
+const  Dummy_User =[{
+  id:"ui1",
+  name:"Jeshop",
+  email:"jeshop@gmail.com",
+  password:"123123"
+}];
+
+exports.Data = Data;
+exports.Dummy_User = Dummy_User;
+
+// module.exports =Data;
