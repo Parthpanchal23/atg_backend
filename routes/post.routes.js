@@ -1,7 +1,13 @@
-
 const { Router } = require("express");
-const { getPostById, getPostsByUserId, getAllPost, createPost, deletePost, updatePost } = require("../controllers/post.controller");
-
+const {
+  getPostById,
+  getPostsByUserId,
+  getAllPost,
+  createPost,
+  deletePost,
+  updatePost,
+} = require("../controllers/post.controller");
+const { check } = require("express-validator");
 const router = Router();
 /**
  * @swagger
@@ -12,10 +18,7 @@ const router = Router();
  *       200:
  *         description: A successful response
  */
-router.
-    route("/")
-    .get(getAllPost);
-
+router.route("/").get(getAllPost);
 
 /**
  * @swagger
@@ -26,10 +29,7 @@ router.
  *       200:
  *         description:Retrieve of posts
  */
-router.
-    route("/:pid")
-    .get(getPostById);
-
+router.route("/:pid").get(getPostById);
 
 /**
  * @swagger
@@ -39,25 +39,19 @@ router.
  *     responses:
  *       200:
  *         description:Retrieve of posts of user
- */ 
-router.
-    route("/user/:uid")
-    .get(getPostsByUserId);
+ */
+router.route("/user/:uid").get(getPostsByUserId);
 
+router
+  .route("/")
+  .post(
+    [check("title").not().isEmpty(),
+    check("description").isLength({min:5}),check("location").not().isEmpty()],
+    createPost
+  );
 
+router.route("/:pid").patch(updatePost);
 
-router.
-    route("/")
-    .post(createPost);
+router.route("/:pid").delete(deletePost);
 
-
-router.
-    route("/:pid")
-    .patch(updatePost);    
-
-router.
-    route("/:pid")
-    .delete(deletePost);
-
-    
-module.exports =router;
+module.exports = router;

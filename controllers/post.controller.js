@@ -1,5 +1,6 @@
 const { Data } = require("../data");
 const HttpError = require("../utils/http-error");
+const {validationResult} = require('express-validator');
 const uuid = require('uuid');
 
 const getAllPost = (req, res, next) => {
@@ -43,14 +44,20 @@ const getPostsByUserId = (req, res, next) => {
 };
 
 const createPost = (req, res, next) => {
+ const errros= validationResult(req);
+ if(!errros.isEmpty())
+ {
+  console.log("errros",errros);
+  throw new HttpError("ALL fields are required", 422);
+ }
   const { title, description, status, location, keyword, creator } = req.body;
 
  // check all feild is exist or not   
-  if (
-    [title, description, status, location, keyword, creator].some((fields) => fields?.trim() === "")) {
-        console.log("err",[title, description, status, location, keyword, creator].some((fields) => fields?.trim() === ""))
-    throw new HttpError("ALL fields are required", 400);
-  }
+  // if (
+  //   [title, description, status, location, keyword, creator].some((fields) => fields?.trim() === "")) {
+  //       console.log("err",[title, description, status, location, keyword, creator].some((fields) => fields?.trim() === ""))
+  //   throw new HttpError("ALL fields are required", 400);
+  // }
 
   const createdPost = {
     id:uuid(),
