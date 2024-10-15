@@ -77,6 +77,12 @@ const createPost = (req, res, next) => {
 };
 
 const updatePost = (req,res,next) => {
+  const errros= validationResult(req);
+ if(!errros.isEmpty())
+ {
+  console.log("errros",errros);
+  throw new HttpError("ALL fields are required", 422);
+ }
   const {title,description} = req.body;
   const postId = req.params.pid;
 
@@ -94,6 +100,11 @@ try{
 }
 
 const deletePost = (req,res,next) => {
+
+  if(!Data.find(p => p.id === pid ))
+  {
+    throw new HttpError('Could not find place for that id',404);
+  }
   const pid =req.params.pid;
   Data =Data.filter(p => p.id !== pid );
   res.status(200).json({message:"deleted sucessfull"})

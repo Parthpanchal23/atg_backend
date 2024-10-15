@@ -50,7 +50,7 @@ router
     createPost
   );
 
-router.route("/:pid").patch(updatePost);
+router.route("/:pid").patch([check('title').not().isEmpty(), check("description").isLength({min:5})],updatePost);
 
 router.route("/:pid").delete(deletePost);
 
