@@ -2,6 +2,8 @@ const { Data } = require("../data");
 const HttpError = require("../utils/http-error");
 const {validationResult} = require('express-validator');
 const uuid = require('uuid');
+const getCordinateForAddress = require("../utils/location");
+
 
 const getAllPost = (req, res, next) => {
   return res.json({ status: "sucess", data: Data });
@@ -43,11 +45,10 @@ const getPostsByUserId = (req, res, next) => {
   }
 };
 
-const createPost = (req, res, next) => {
+const createPost = asnc(req, res, next) => {
  const errros= validationResult(req);
  if(!errros.isEmpty())
  {
-  console.log("errros",errros);
   throw new HttpError("ALL fields are required", 422);
  }
   const { title, description, status, location, keyword, creator } = req.body;
@@ -58,12 +59,19 @@ const createPost = (req, res, next) => {
   //       console.log("err",[title, description, status, location, keyword, creator].some((fields) => fields?.trim() === ""))
   //   throw new HttpError("ALL fields are required", 400);
   // }
+  let cordinates;
+try {
+  cordinates = await getCordinateForAddress(location);
+  
+} catch (error) {
+  next(error);
+}
 
   const createdPost = {
     id:uuid(),
     title,
     description,
-    location,
+    location:cordinates,
     keyword,
     status,
     creator,
