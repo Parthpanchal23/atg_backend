@@ -13,6 +13,7 @@ app.use(bodyParser.json())
 
 // Mongo Practice 
 app.post("/product",MON.createMPost);
+app.get("/product",MON.getMPost)
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/api/v1/user',userRoute);

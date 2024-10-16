@@ -42,4 +42,24 @@ const cretePost = async (req,res,next) => {
     client.close();
 }
 
+const getPost = async(req,res,next) => {
+
+    const client = new MongoClient(URL);
+    let products;
+
+    try {
+        await client.connect();
+        const db = await client.db();
+        products = await db.collection('Posts').find().toArray();
+        
+    } catch (error) {
+        return res.status(401).json({message:"could not retrive Posts"});
+    }
+    
+    client.close();
+    res.status(200).json({message:"retrive sucessfully",data:products})
+
+}
+
+exports.getMPost = getPost;
 exports.createMPost = cretePost;
