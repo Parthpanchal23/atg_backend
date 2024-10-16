@@ -45,7 +45,7 @@ const getPostsByUserId = (req, res, next) => {
   }
 };
 
-const createPost = asnc(req, res, next) => {
+const createPost = async(req, res, next) => {
  const errros= validationResult(req);
  if(!errros.isEmpty())
  {

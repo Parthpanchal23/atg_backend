@@ -6,9 +6,13 @@ const userRoute = require('./routes/user.routes');
 const HttpError = require('./utils/http-error');
 const swaggerUi = require('swagger-ui-express');
 const specs = require('./swaggerOptions');
+const MON = require('./db/mongo');
 
 const app =express();
 app.use(bodyParser.json())
+
+// Mongo Practice 
+app.post("/product",MON.createMPost);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/api/v1/user',userRoute);
