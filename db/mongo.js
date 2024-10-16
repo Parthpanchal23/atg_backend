@@ -16,9 +16,9 @@ const cretePost = async (req,res,next) => {
     try {
         await client.connect();
         try {
-            const connectdb = await client.db();
+            const db = await client.db();
             try {
-                const result = await connectdb.collection('Posts').insertOne(newPost);
+                const result = await db.collection('Posts').insertOne(newPost);
                 if(result)
                 {
                     return res.status(200).json({message:"Sucessfully created",data:result});
