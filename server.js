@@ -13,8 +13,12 @@ const app =express();
 app.use(bodyParser.json())
 
 // Mongo Practice 
+// app.get("/product",MON.getMPost);
+// app.post("/product",MON.createMPost);
+
+// Mongoose threv
 app.post("/product",Night.CreatePost);
-app.get("/product",MON.getMPost)
+app.get("/product",Night.GetPosts);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 app.use('/api/v1/user',userRoute);

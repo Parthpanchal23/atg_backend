@@ -21,4 +21,12 @@ const cretedPost = async(req,res,next) => {
 
 }
 
-exports.CreatePost =cretedPost; 
+const getPosts = async(req,res,next) => {
+//find methods in mongoose return [] bydefault.
+// exec() function retrun promise 
+ const fetchpost = await Post.find().exec();
+ res.status(200).json({data:fetchpost});
+}
+
+exports.CreatePost =cretedPost;
+exports.GetPosts = getPosts;
